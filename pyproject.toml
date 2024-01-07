@@ -1,0 +1,27 @@
+[build-system]
+
+
+[project]
+name = "COScStats"
+version = "0.1.0"
+description = "COSc file statistics"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["COCs", "statistics", "shapefile"]
+license = { text = "MIT" }
+authors = [{ name = "Rui Mata", email = "atamiur@gmail.com" }]
+dependencies = ["tabulate >= 0.9.0"]
+
+[project.optional-dependencies]
+devel = [
+]
+
+[project.scripts]
+coscstats = "coscstats.cli:_main"
+
+[project.entry-points."coscstats.commands"]
+test = "coscstats.func:_test"
+
+[tool.black]
+line-length = 80
+target-version = ['py38']

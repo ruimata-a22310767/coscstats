@@ -1,5 +1,6 @@
 # [RMata] env custom dir
-coscstat_env/
+coscstats_env/
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -17,9 +17,10 @@ devel = [
 ]
 
 [project.scripts]
-coscstats = "coscstats.cli:_main"
+coscstats = "coscstats.coscstats:_main"
 
 [project.entry-points."coscstats.commands"]
+status = "coscstats.stats:_status"
 test = "coscstats.func:_test"
 
 [tool.black]

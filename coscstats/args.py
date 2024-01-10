@@ -17,4 +17,6 @@ def _arg_process() -> dict[str, Callable[[str], Any]]:
 
     plugin_entrypoints = entry_points(group="coscstats.commands") #TODO: to be reviewed after entrypoint definition
 
+    print(plugin_entrypoints)
+
     return {ep.name: ep.load() for ep in plugin_entrypoints}

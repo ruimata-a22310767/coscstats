@@ -1,26 +1,66 @@
-from dataclasses import dataclass, field
+"""
+
+
+"""
+from dataclasses import dataclass, field, asdict
 from typing import List
+
+import json
+
+
+# globals
+
 
 @dataclass
 class Settings:
-    name: str
-    age: int
-    email: str
-    is_student: bool = True
-    grades: List[float] = field(default_factory=list)
+    settings_folder: str = "settings"
+    data_folder: str = "data"
+    stats_folder: str = "status"
 
-    def add_grade(self, grade: float):
-        self.grades.append(grade)
+    def as_dict(self):
+        return asdict(self)
 
-    def calculate_average_grade(self):
-        if not self.grades:
-            return 0.0
-        return sum(self.grades) / len(self.grades)
+    def as_json(self):
+        return json.dumps(self.as_dict(), indent=4)
 
-# Example usage:
-person = ComplexData(name="John Doe", age=25, email="john@example.com")
-person.add_grade(85.5)
-person.add_grade(92.0)
-average_grade = person.calculate_average_grade()
 
-print(f"{person.name} ({person.age} years old) has an average grade of {average_grade:.2f}.")
+# -------------------------------------------------------
+
+
+# util functions
+def read_config():
+    import os
+    import json
+
+    # check if the settings folder exists
+    if not os.path.exists("settings"):
+        # Create the settings folder
+        os.mkdir("settings")
+
+    # Check if the config.json file exists in the settings folder
+    if not os.path.exists("settings/config.json"):
+        # create a default settings definition
+        config = Settings()
+
+        # create an empty config.json file
+        file = open("settings/config.json", "w")
+
+        # write default settings into file
+        file.write(config.as_json())
+
+        # close the settings file
+        file.close()
+        return
+
+    # read the config.json file
+    with open("settings/config.json") as f:
+        config = json.load(f)
+
+    # use the config object
+    return config
+
+
+# if launched via command line (for testing purposes)
+if __name__ == "__main__":
+    config = read_config()
+    print(config)

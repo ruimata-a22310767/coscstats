@@ -1,0 +1,4 @@
+# customised aliases included in .bashrc
+
+alias python=python3
+alias senv='source lab/bin/activate'

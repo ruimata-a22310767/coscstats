@@ -3,9 +3,14 @@
 import sys
 #from inspect import getdoc
 from tabulate import tabulate
+from 
 
 
 def _main():
+    # read the config file
+    # check if arguments are set
+    # adjust config based on arguments
+
     print("got here")
     print (list(enumerate(sys.argv)))
 

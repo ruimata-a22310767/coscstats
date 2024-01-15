@@ -2,7 +2,7 @@
     "settings_folder": "settings/",
     "settings_file": "config.json",
     "data_folder": "data/",
-    "data_extensions": [
+    "data_file_extensions": [
         ".tif",
         ".tiff"
     ],

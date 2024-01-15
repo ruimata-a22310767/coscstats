@@ -28,7 +28,7 @@ import settings
 data_files = []
 
 
-def list_data_files(settings: Settings):
+def list_data_files(config: Settings):
     """Retrieves the list of data files in the defined data folder. Files are expected to be in the format <name>.tif
     Sets global data_files as a list of tif files. Also returns a list of data files (as a list of strings)
 
@@ -38,19 +38,19 @@ def list_data_files(settings: Settings):
     Returns:
         Settings: dataclass object
     """
-    data_files = [
+
+    return [
         file
         for file in os.listdir(STD_DATA_FOLDER)
-        if file[-1 * (len(file) - t.find(".")) :] in STD_DATA_EXTENSIONS
+        if file[-1 * (len(file) - file.find(".")) :].upper()
+        in config.get_data_file_extensions()
         # if file.upper().endswith(".tif".upper())
     ]
-    # t[-1*(len(t)-t.find('.')):]
-
-    return data_files
 
 
 # if launched via command line (for testing purposes)
 if __name__ == "__main__":
     # Example usage
-    tif_files = list_data_files(STD_DATA_FOLDER)
+    config = settings.read_config()
+    tif_files = list_data_files(config)
     print(tif_files)

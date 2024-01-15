@@ -11,6 +11,7 @@ Dependencies:
     ['os']                      # python built in 
     ['json']                    # python built in
     ['dataclasses'] (>= 0.6)    # dataclass lib -> handle class alike data structures
+    ['typing ]
 
 Example usage:
     import settings
@@ -28,7 +29,7 @@ from typing import List
 STD_SETTINGS_FOLDER = "settings/"
 STD_SETTINGS_FILE = "config.json"
 STD_DATA_FOLDER = "data/"
-STD_DATA_EXTENSIONS = [".tif", ".tiff"]
+STD_DATA_FILE_EXTENSIONS = [".tif", ".tiff"]
 STD_STATS_FOLDER = "status/"
 
 
@@ -37,8 +38,8 @@ class Settings:
     settings_folder: str = STD_SETTINGS_FOLDER
     settings_file: str = STD_SETTINGS_FILE
     data_folder: str = STD_DATA_FOLDER
-    data_extensions: List[str] = field(
-        default_factory=lambda: STD_DATA_EXTENSIONS
+    data_file_extensions: List[str] = field(
+        default_factory=lambda: STD_DATA_FILE_EXTENSIONS
     )
     stats_folder: str = STD_STATS_FOLDER
 
@@ -47,6 +48,9 @@ class Settings:
 
     def as_json(self):
         return json.dumps(self.as_dict(), indent=4)
+
+    def get_data_file_extensions(self) -> List[str]:
+        return [x.upper() for x in self.data_file_extensions]
 
 
 # -------------------------------------------------------
@@ -122,5 +126,7 @@ if __name__ == "__main__":
     print(config.settings_folder)
     print(config.settings_file)
     print(config.data_folder)
-    print(STD_DATA_EXTENSIONS)
+    print(config.data_file_extensions)
     print(config.stats_folder)
+
+    print(config.get_data_file_extensions())

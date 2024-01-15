@@ -11,7 +11,7 @@ Dependencies:
     ['os']                      # python built in 
     ['json']                    # python built in
     ['dataclasses'] (>= 0.6)    # dataclass lib -> handle class alike data structures
-    ['typing ]
+    ['typing ] (>= 3.7.4.3)     # add-on python module: Support for type hints
 
 Example usage:
     import settings
@@ -31,25 +31,34 @@ STD_SETTINGS_FILE = "config.json"
 STD_DATA_FOLDER = "data/"
 STD_DATA_FILE_EXTENSIONS = [".tif", ".tiff"]
 STD_STATS_FOLDER = "status/"
+STD_JSON_INDENTATION = 4
 
 
 @dataclass
 class Settings:
+    # Settings folder
     settings_folder: str = STD_SETTINGS_FOLDER
+    # Settings file
     settings_file: str = STD_SETTINGS_FILE
+    # Data folder
     data_folder: str = STD_DATA_FOLDER
+    # Data file extensions
     data_file_extensions: List[str] = field(
         default_factory=lambda: STD_DATA_FILE_EXTENSIONS
     )
+    # Stats folde
     stats_folder: str = STD_STATS_FOLDER
 
     def as_dict(self):
+        """Converts the settings object to a dictionary representation."""
         return asdict(self)
 
     def as_json(self):
-        return json.dumps(self.as_dict(), indent=4)
+        """Converts the settings object to a JSON string."""
+        return json.dumps(self.as_dict(), indent=STD_JSON_INDENTATION)
 
     def get_data_file_extensions(self) -> List[str]:
+        """Returns the data file extensions in uppercase."""
         return [x.upper() for x in self.data_file_extensions]
 
 
@@ -128,5 +137,5 @@ if __name__ == "__main__":
     print(config.data_folder)
     print(config.data_file_extensions)
     print(config.stats_folder)
-
+    print("------")
     print(config.get_data_file_extensions())

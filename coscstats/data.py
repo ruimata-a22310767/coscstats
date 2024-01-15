@@ -41,8 +41,10 @@ def list_data_files(settings: Settings):
     data_files = [
         file
         for file in os.listdir(STD_DATA_FOLDER)
-        if file.upper().endswith(".tif".upper())
+        if file[-1 * (len(file) - t.find(".")) :] in STD_DATA_EXTENSIONS
+        # if file.upper().endswith(".tif".upper())
     ]
+    # t[-1*(len(t)-t.find('.')):]
 
     return data_files
 

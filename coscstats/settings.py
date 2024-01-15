@@ -21,12 +21,14 @@ TODO: exception management
 """
 from dataclasses import dataclass, field, asdict
 import os, json
+from typing import List
 
 
 # globals
 STD_SETTINGS_FOLDER = "settings/"
 STD_SETTINGS_FILE = "config.json"
 STD_DATA_FOLDER = "data/"
+STD_DATA_EXTENSIONS = [".tif", ".tiff"]
 STD_STATS_FOLDER = "status/"
 
 
@@ -35,6 +37,9 @@ class Settings:
     settings_folder: str = STD_SETTINGS_FOLDER
     settings_file: str = STD_SETTINGS_FILE
     data_folder: str = STD_DATA_FOLDER
+    data_extensions: List[str] = field(
+        default_factory=lambda: STD_DATA_EXTENSIONS
+    )
     stats_folder: str = STD_STATS_FOLDER
 
     def as_dict(self):
@@ -48,8 +53,31 @@ class Settings:
 
 
 # util functions
+
+
+def check_folder(folder: str, auto_create: bool = True) -> bool:
+    """
+    Verifies the existence of a folder and creates it if it doesn't exist.
+
+    Parameters:
+        folder (str): The path to the folder to check.
+        auto_create (bool, optional): Whether to automatically create the folder if it doesn't exist. Default is True.
+
+    Returns:
+        bool: Indicates whether the folder exists.
+    """
+    # check if the settings folder exists
+    if not os.path.exists(folder):
+        # Create the settings folder
+        if auto_create:
+            os.mkdir(folder)
+        return False
+    return True
+
+
 def read_config():
-    """Retrieves the settings json from predefined file. If not present, creates folder and config file (<settings_folder>/<settings_file>)
+    """
+    Retrieves the json settings from predefined file. If not present, creates folder and config file (<settings_folder>/<settings_file>)
 
     Parameters:
         N/A
@@ -58,10 +86,8 @@ def read_config():
         Settings: dataclass object
     """
 
-    # check if the settings folder exists
-    if not os.path.exists(STD_SETTINGS_FOLDER):
-        # Create the settings folder
-        os.mkdir(STD_SETTINGS_FOLDER)
+    # check for settings folder (and creates a default one if it doesn't exist)
+    check_folder(STD_SETTINGS_FOLDER)
 
     # Check if the config.json file exists in the settings folder
     if not os.path.exists(STD_SETTINGS_FOLDER + STD_SETTINGS_FILE):
@@ -96,4 +122,5 @@ if __name__ == "__main__":
     print(config.settings_folder)
     print(config.settings_file)
     print(config.data_folder)
+    print(STD_DATA_EXTENSIONS)
     print(config.stats_folder)

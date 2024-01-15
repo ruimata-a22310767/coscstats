@@ -2,5 +2,9 @@
     "settings_folder": "settings/",
     "settings_file": "config.json",
     "data_folder": "data/",
+    "data_extensions": [
+        ".tif",
+        ".tiff"
+    ],
     "stats_folder": "status/"
 }

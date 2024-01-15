@@ -10,7 +10,7 @@ Date: Jan 2024
 Dependencies:
     ['os']                      # python built in 
     ['json']                    # python built in
-    ['dataclasses'] (>= 0.6)    # 
+    ['dataclasses'] (>= 0.6)    # dataclass lib -> handle class alike data structures
 
 Example usage:
     import settings

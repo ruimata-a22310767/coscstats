@@ -1,26 +1,74 @@
-"""Functions to be invoked as command line scripts."""
+"""
+COScStats main 
+
+Maind COSc files handling module
+
+Author: Rui Mata
+Email: atamiur@gmail.com
+Date: Jan 2024
+
+Dependencies:
+    ['os']                      # python built in 
+    ['json']                    # python built in
+    ['dataclasses'] (>= 0.6)    # dataclass lib -> handle class alike data structures
+    ['typing ] (>= 3.7.4.3)     # add-on python module: Support for type hints
+
+Example usage:
+    import settings
+    config = settings.read_config()
+
+TODO: exception management
+TODO: argument validation
+
+"""
+
 
 import sys
-#from inspect import getdoc
-from tabulate import tabulate
-from 
+from settings import Settings, read_config
+from data import list_data_files
+import tabulate
+from pprint import pprint
+
+config: Settings
+
+
+def read_metadata(file: str):
+    return
+
+
+def grab_statistics(config: Settings):
+    # get data file list
+    data_files = list_data_files(config)
+    print("list: ", end="")
+    pprint(data_files)
+    # for each file
+    #   retrieve file metadata
+    #   process file and create dict data
+    return
 
 
 def _main():
     # read the config file
+    config = read_config()
     # check if arguments are set
     # adjust config based on arguments
 
-    print("got here")
-    print (list(enumerate(sys.argv)))
+    pprint(config)  # @@@ remove
+    pprint(list(enumerate(sys.argv)))  # @@@ remove
 
     from commands.commands import _commands
+
     _commands()
+
+    # grab statistics
+    stats = grab_statistics(config)
+    #   cycle data files
+
+    #   create statistics
 
 
 if __name__ == "__main__":
     _main()
-
 
 
 """ def _main():

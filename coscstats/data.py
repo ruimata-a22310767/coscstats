@@ -20,7 +20,7 @@ TODO: exception management
 """
 
 import os
-from settings import Settings, STD_DATA_FOLDER
+from settings import Settings
 import settings
 
 
@@ -41,7 +41,7 @@ def list_data_files(config: Settings):
 
     return [
         file
-        for file in os.listdir(STD_DATA_FOLDER)
+        for file in os.listdir(config.data_folder)
         if file[-1 * (len(file) - file.find(".")) :].upper()
         in config.get_data_file_extensions()
         # if file.upper().endswith(".tif".upper())

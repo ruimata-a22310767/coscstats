@@ -6,5 +6,7 @@
         ".tif",
         ".tiff"
     ],
-    "stats_folder": "status/"
+    "stats_folder": "stats/",
+    "verbose_mode": true,
+    "log_file": "coscstats.log"
 }

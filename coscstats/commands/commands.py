@@ -1,3 +1,3 @@
 def _commands():
-    print(".")
+    # print(".")
     return

@@ -25,7 +25,9 @@ TODO: argument validation
 
 import sys
 from settings import Settings, read_config
-from data import list_data_files
+from data_files import list_data_files
+import data_header
+from pixeldata_rasterio import process_data_file
 import tabulate
 from pprint import pprint
 
@@ -38,23 +40,45 @@ def read_metadata(file: str):
 
 def grab_statistics(config: Settings):
     # get data file list
-    data_files = list_data_files(config)
-    print("list: ", end="")
-    pprint(data_files)
+    print("Determining files to process...", end="")
+    sys.stdout.flush()
+    cosc_files = list_data_files(config)
+    print("OK")
+
     # for each file
     #   retrieve file metadata
     #   process file and create dict data
+    for file in cosc_files:
+        # get header metadata
+        print(
+            "----------------------------\nProcessing file  -->  ",
+            config.data_folder + file,
+        )  # TODO: get into a method
+        print("    Retrieving metadata header...", end="")
+        data_header.GeotiffMetadatHeader.target_file(config.data_folder + file)
+        print("OK")
+
+        # getting detailed info
+        print("    Processing pixel data...")  # , end="")
+        sys.stdout.flush()
+        process_data_file(config.data_folder + file)
+        print("    file processed !")
+
     return
 
 
 def _main():
     # read the config file
+    print("Configuration settings... ", end="")
+    sys.stdout.flush()
     config = read_config()
+    print("OK")
+
     # check if arguments are set
     # adjust config based on arguments
 
-    pprint(config)  # @@@ remove
-    pprint(list(enumerate(sys.argv)))  # @@@ remove
+    # pprint(config)  # @@@ remove
+    # pprint(list(enumerate(sys.argv)))  # @@@ remove
 
     from commands.commands import _commands
 
@@ -69,34 +93,3 @@ def _main():
 
 if __name__ == "__main__":
     _main()
-
-
-""" def _main():
-    if len(sys.argv) > 1:
-        from .api import text_stats
-
-        f = sys.argv[1]
-        with open(f, "r") as text_file:
-            f_stats = text_stats(text_file.read())
-        print(
-            tabulate(
-                f_stats.items(),
-                headers=["Statistic", "Value"],
-                tablefmt="rounded_outline",
-            )
-        )
-
-    else:
-        from .stats_finder import _find_stats
-
-        stats_found = _find_stats()
-
-        stats_help = {n: getdoc(f).split("\n")[0] for n, f in stats_found.items()}
-
-        print(
-            tabulate(
-                stats_help.items(),
-                headers=["Statistic", "Description"],
-                tablefmt="rounded_outline",
-            )
-        ) """

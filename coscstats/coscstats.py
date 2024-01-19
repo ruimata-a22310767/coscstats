@@ -44,6 +44,7 @@ def grab_statistics(config: Settings):
     sys.stdout.flush()
     cosc_files = list_data_files(config)
     print("OK")
+    print("Files to be processed: ", cosc_files, "\n")
 
     # for each file
     #   retrieve file metadata

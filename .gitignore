@@ -1,6 +1,7 @@
 # [RMata] env custom dir and execution files
 lab/
 data/
+stats/
 .pickle
 .out
 

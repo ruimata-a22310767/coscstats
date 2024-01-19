@@ -8,23 +8,27 @@ from dataclasses import dataclass, field
 
 __default_argument = "--just-checking"
 
+
 @dataclass
 class Metadata:
-    code : int
+    code: int
+
 
 @dataclass
 class Point:
-    lat : float
-    long : float
+    lat: float
+    long: float
+
 
 @dataclass
 class Datapoint:
     ID: int
-    point : Point
+    point: Point
+
 
 #############
 def __just_checking():
-    p = Point(1.1 , 2.2)
+    p = Point(1.1, 2.2)
     print(p)
 
     d = Datapoint(123, p)
@@ -38,4 +42,3 @@ if __name__ == "__main__":
         pprint(inspect.getmembers(Point, inspect.isfunction))
         pprint(inspect.getmembers(Metadata, inspect.isfunction))
         pprint(inspect.getmembers(Datapoint, inspect.isfunction))
-        

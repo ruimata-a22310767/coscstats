@@ -16,11 +16,13 @@ Example usage:
     config = settings.read_config()
 
 TODO: exception management
+TODO: magic constants
 
 """
 
 import rasterio
 from dataclasses import dataclass, fields
+from settings import STD_STATS_FOLDER, check_folder
 
 
 # Create a dataclass schema
@@ -63,7 +65,7 @@ class GeotiffMetadatHeader:
 
 
 # Example usage
-data = GeotiffMetadata.target_file(
+data = GeotiffMetadatHeader.target_file(
     "/home/rmata/Desktop/coscstats/data/prof/tratameto_mapas/data/COSc2022/COSc2022_N3_v0_TM06.tif"
 )
 print("\n", data, "\n")
@@ -71,5 +73,8 @@ print("\n", data, "\n")
 import pickle
 
 # testing the dataclass dump into a  file (pickle\binary) TODO: shift to json
-with open("geotiff_metadata_header_bin.pickle", "wb") as f:
+check_folder(STD_STATS_FOLDER)
+with open(
+    STD_STATS_FOLDER + "geotiff_metadata_header_bin.pickle", "wb"
+) as f:  # TODO: improve magic constant
     pickle.dump(data, f)

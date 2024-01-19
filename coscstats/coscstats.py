@@ -1,7 +1,7 @@
 """
 COScStats main 
 
-Maind COSc files handling module
+Main COSc file handling module
 
 Author: Rui Mata
 Email: atamiur@gmail.com

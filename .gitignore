@@ -1,6 +1,8 @@
-# [RMata] env custom dir
+# [RMata] env custom dir and execution files
 lab/
 data/
+.pickle
+.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

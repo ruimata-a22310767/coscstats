@@ -30,8 +30,10 @@ STD_SETTINGS_FOLDER = "settings/"
 STD_SETTINGS_FILE = "config.json"
 STD_DATA_FOLDER = "data/"
 STD_DATA_FILE_EXTENSIONS = [".tif", ".tiff"]
-STD_STATS_FOLDER = "status/"
+STD_STATS_FOLDER = "stats/"
+STD_STATS_LOG_FILE = "coscstats.log"
 STD_JSON_INDENTATION = 4
+STD_VERBOSE_MODE = True
 
 
 @dataclass
@@ -46,15 +48,19 @@ class Settings:
     data_file_extensions: List[str] = field(
         default_factory=lambda: STD_DATA_FILE_EXTENSIONS
     )
-    # Stats folde
+    # Stats folder
     stats_folder: str = STD_STATS_FOLDER
+    # verbose mode
+    verbose_mode: bool = STD_VERBOSE_MODE
+    # Log file
+    log_file: str = STD_STATS_LOG_FILE
 
     def as_dict(self):
-        """Converts the settings object to a dictionary representation."""
+        """Converting settings object into a dictionary representation."""
         return asdict(self)
 
     def as_json(self):
-        """Converts the settings object to a JSON string."""
+        """Converting settings object into a JSON string."""
         return json.dumps(self.as_dict(), indent=STD_JSON_INDENTATION)
 
     def get_data_file_extensions(self) -> List[str]:
